@@ -15,18 +15,18 @@ public class SysTestMgrImpl extends BaseMgr implements SysTestMgr {
 
 	@Override
 	public void saveSysTest(Map<String, Object> daoArgs) {
-		this.dao.insert("sysTestMapper.saveSysTest", daoArgs);
+		this.dao.insert("SysTestMapper.saveSysTest", daoArgs);
 	}
 
 	@Override
 	public List<SysTest> querySysTest(Map<String, Object> daoArgs) {
-		List<SysTest> list = this.dao.query("sysTestMapper.querySysTest", daoArgs);
+		List<SysTest> list = this.dao.query("SysTestMapper.querySysTest", daoArgs);
 		return list;
 	}
 
 	@Override
 	public Page<SysTest> queryPageSysTest(Map<String, Object> daoArgs) {
-		Page<SysTest> page = this.dao.query("sysTestMapper.querySysTest", daoArgs,
+		Page<SysTest> page = this.dao.query("SysTestMapper.querySysTest", daoArgs,
 				Integer.valueOf(daoArgs.get("pageSize").toString()), Integer.valueOf(daoArgs.get("pageNo").toString()));
 		return page;
 	}

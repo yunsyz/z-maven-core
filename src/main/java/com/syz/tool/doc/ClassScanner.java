@@ -14,10 +14,16 @@ import java.util.List;
 import java.util.Map;
 
 public class ClassScanner {
+	private String resourceRoot;
+
+	public ClassScanner(String resourceRoot) {
+		this.resourceRoot = resourceRoot;
+	}
+
 	public String scan(Class<?> clazz, boolean isMarkDown) {
 		StringBuilder sb = new StringBuilder();
 		try {
-			CommentScanner classCommentScanner = new ClassCommentScanner();
+			CommentScanner classCommentScanner = new ClassCommentScanner(resourceRoot);
 			List<CommentEntry> classCommentList = classCommentScanner.scan(clazz.getName());
 			String classComment = getCommentValue(classCommentList, clazz.getSimpleName());
 			if (isMarkDown) {
@@ -29,7 +35,7 @@ public class ClassScanner {
 			sb.append(clazz.getSimpleName()).append("\n");
 			Method[] methods = clazz.getDeclaredMethods();
 			sortMethods(methods);
-			CommentScanner methodCommentScanner = new MethodCommentScanner();
+			CommentScanner methodCommentScanner = new MethodCommentScanner(resourceRoot);
 			List<CommentEntry> methodCommentList = methodCommentScanner.scan(clazz.getName());
 			for (Method method : methods) {
 				Class<?>[] inClazzs = method.getParameterTypes();
@@ -244,7 +250,7 @@ public class ClassScanner {
 
 	private List<CommentEntry> getFieldCommentList(Class<?> type) {
 		List<CommentEntry> list = new ArrayList<>();
-		CommentScanner fieldCommentScanner = new FieldCommentScanner();
+		CommentScanner fieldCommentScanner = new FieldCommentScanner(resourceRoot);
 		List<String> clazzNameList = getAllClassName(type);
 		for (String clazzName : clazzNameList) {
 			List<CommentEntry> subList = fieldCommentScanner.scan(clazzName);
@@ -291,4 +297,13 @@ public class ClassScanner {
 		}
 		return commentValue;
 	}
+
+	public String getResourceRoot() {
+		return resourceRoot;
+	}
+
+	public void setResourceRoot(String resourceRoot) {
+		this.resourceRoot = resourceRoot;
+	}
+
 }

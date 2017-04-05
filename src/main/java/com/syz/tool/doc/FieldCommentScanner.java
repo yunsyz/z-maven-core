@@ -1,6 +1,9 @@
 package com.syz.tool.doc;
 
 public class FieldCommentScanner extends CommentScanner {
+	public FieldCommentScanner(String resourceRoot) {
+		super(resourceRoot);
+	}
 
 	@Override
 	protected String handleCommentKey(String key) {

@@ -1,6 +1,9 @@
 package com.syz.tool.doc;
 
 public class MethodCommentScanner extends CommentScanner {
+	public MethodCommentScanner(String resourceRoot) {
+		super(resourceRoot);
+	}
 
 	@Override
 	protected String handleCommentKey(String key) {
@@ -24,7 +27,11 @@ public class MethodCommentScanner extends CommentScanner {
 		str = str.replaceAll("/", "");
 		str = str.replaceAll("\\*", "");
 		str = str.replaceAll(" ", "");
-		str = str.replaceAll("@Description:", "");
+		int idx = str.indexOf("@");
+		if (idx < 0) {
+			idx = 0;
+		}
+		str = str.substring(0, idx);
 		String result = str.trim();
 		return result;
 	}

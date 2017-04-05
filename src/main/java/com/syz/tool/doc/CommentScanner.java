@@ -7,6 +7,12 @@ import java.util.List;
 import org.apache.commons.io.FileUtils;
 
 public abstract class CommentScanner {
+	private String resourceRoot;
+
+	public CommentScanner(String resourceRoot) {
+		this.resourceRoot = resourceRoot;
+	}
+
 	private String root = System.getProperty("user.dir");
 
 	protected String valuePrefixRegex;
@@ -26,11 +32,11 @@ public abstract class CommentScanner {
 		setValueSuffixRegex();
 		setKeyRegex();
 		try {
-			String path = root + separator + "src" + separator + clazzName.replace(".", separator);
+			String path = root + separator + resourceRoot + separator + clazzName.replace(".", separator);
 			path = path + ".java";
 			File file = new File(path);
 			if (file.exists()) {
-				List<String> lines = FileUtils.readLines(file, "utf-8");
+				List<String> lines = FileUtils.readLines(file, "UTF-8");
 				list = parseLines(lines);
 			}
 		} catch (Exception e) {
@@ -91,5 +97,13 @@ public abstract class CommentScanner {
 	protected abstract void setValueSuffixRegex();
 
 	protected abstract void setKeyRegex();
+
+	public String getResourceRoot() {
+		return resourceRoot;
+	}
+
+	public void setResourceRoot(String resourceRoot) {
+		this.resourceRoot = resourceRoot;
+	}
 
 }

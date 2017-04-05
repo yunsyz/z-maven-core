@@ -6,20 +6,33 @@ import com.syz.service.msg.ST002Req;
 import com.syz.service.msg.ST002Resp;
 import com.syz.service.msg.ST003Req;
 import com.syz.service.msg.ST003Resp;
-
+/**
+ * 测试接口
+ * @author yunsyz
+ *
+ */
 public interface SysTestService {
 	/**
-	 * @Description: 增加
+	 * 增加
+	 * 
+	 * @param req
+	 * @return
 	 */
 	ST001Resp st001(ST001Req req);
 
 	/**
-	 * @Description: 查询
+	 * 查询
+	 * 
+	 * @param req
+	 * @return
 	 */
 	ST002Resp st002(ST002Req req);
 
 	/**
-	 * @Description: 分页查询
+	 * 分页查询
+	 * 
+	 * @param req
+	 * @return
 	 */
 	ST003Resp st003(ST003Req req);
 }

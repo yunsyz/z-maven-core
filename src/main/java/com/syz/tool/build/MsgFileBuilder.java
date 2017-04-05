@@ -17,6 +17,7 @@ import com.syz.base.msg.BaseResponseMsg;
 public class MsgFileBuilder {
 
 	private static String root = System.getProperty("user.dir");
+	private static String resourceRoot ="/src/main/java/";
 
 	private static String encoding = "UTF-8";
 
@@ -28,7 +29,7 @@ public class MsgFileBuilder {
 
 	public static void main(String[] args) throws IOException {
 		String packageName = "com.syz.service.msg";
-		String methodDescFilePath = "/src/com/syz/tool/build/template/desc.txt";
+		String methodDescFilePath = resourceRoot+"com/syz/tool/build/template/desc.txt";
 		methodDescFilePath = root.concat(methodDescFilePath);
 		List<Map<String, String>> mehtodDescList = covert(methodDescFilePath);
 		build(mehtodDescList, packageName);
@@ -47,8 +48,11 @@ public class MsgFileBuilder {
 		String _description = map.get("_description");
 		StringBuilder sb = new StringBuilder();
 		sb.append("  /**\n");
-		sb.append("  * @Description: ");
+		sb.append("  * ");
 		sb.append(_description);
+		sb.append("\n");
+		sb.append("  * @param req\n");
+		sb.append("  * @return");
 		sb.append("\n");
 		sb.append("  */\n");
 		sb.append(" ");
@@ -112,7 +116,7 @@ public class MsgFileBuilder {
 			sb.append("\n\n");
 			sb.append("}");
 			String str = sb.toString();
-			String path = root.concat("/src/").concat(packageName.replace(".", "/"));
+			String path = root.concat(resourceRoot).concat(packageName.replace(".", "/"));
 			if (type == 0) {
 				path = path + "/" + _className + "Req.java";
 			} else {
